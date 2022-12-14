@@ -259,3 +259,8 @@ class Map_APIView(APIView):
         #total flight for the day
         #x= date
         #y=total flight number
+
+
+
+class Map_APIView(APIView):
+    def post(self, request):        

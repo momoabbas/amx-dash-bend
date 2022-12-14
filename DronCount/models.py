@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django_google_maps import fields as map_fields
+# from django_google_maps import fields as map_fields
 import sys
 from datetime import datetime
 # from django.contrib.gis.db import models
@@ -14,21 +14,23 @@ class CountDetails(models.Model):
 
 class GMap(models.Model):
     # geolocation = map_fields.GeoLocationField(max_length=100)
-    lng=models.CharField(max_length=50, null=True, blank=True)
-    lat=models.CharField(max_length=50, null=True, blank=True)
+    Lng=models.CharField(max_length=50, null=True, blank=True)
+    Lat=models.CharField(max_length=50, null=True, blank=True)
     # geom = models.PointField(blank=True, null=True)
 
 class Drone(models.Model):
     model_name=models.CharField(max_length=50, null=True, blank=True)
     UIN=models.CharField(max_length=50, null=True, blank=True)
-    time_in_service=models.IntegerField(max_length=50, null=True, blank=True)
-    Next_maintainance=models.IntegerField(max_length=50, null=True, blank=True)
-    purchase_year=models.IntegerField(max_length=50, null=True, blank=True)
-    drone_location=models.CharField(max_length=50, null=True, blank=True)
+    time_in_service=models.DateTimeField(auto_now_add=False,verbose_name="Time in service",blank=True,null=True)
+    Next_maintainance=models.DateTimeField(auto_now_add=False,verbose_name="Time in service",blank=True,null=True)
+    purchase_year=models.DateTimeField(auto_now_add=False,verbose_name="Time in service",blank=True,null=True)
+    # drone_location=models.CharField(max_length=50, null=True, blank=True)
     aircraft_type=models.CharField(max_length=50, null=True, blank=True)
     connection_id=models.CharField(max_length=50, null=True, blank=True)
     created_timestamp =   models.DateTimeField(auto_now_add=True,verbose_name="Created_Timestamp",blank=True,null=True)
-    is_on=models.BooleanField(defa=False)
+    last_update_timestamp= models.DateTimeField(auto_now_add=True,verbose_name="last_update_timestamp",blank=True, null=True)
+
+    is_on=models.BooleanField(default=False)
 
 
 

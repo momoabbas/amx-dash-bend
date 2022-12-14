@@ -12,7 +12,7 @@ import jwt
 from django.conf import settings
 from .humanDetection import *
 from .mapDetails import *
-import geopy
+# import geopy
 import datetime
 import pandas as pd
 import calendar
@@ -79,8 +79,39 @@ class Add_Drone_APIView(APIView):
 
     def get(self, request):
 
-        appdata = Drone.objects.all().values()
-        return Response(appdata)
+        id =self.request.query_params.get('id')
+        if id:
+            appdata = Drone.objects.filter(id=id).values()
+            return Response(appdata)
+        else:
+
+            appdata = Drone.objects.all().values()
+            return Response(appdata)
+
+    def put(self, request):
+        data = request.data
+        id = data.get('id')
+        if id:
+            data = Drone.objects.filter(id=id).update(aircraft_type=data.get('aircraft_type'),
+            connection_id= data.get('connection_id'),
+             UIN=data.get('UIN'),
+             model_name=data.get('model_name'),
+              purchase_year=data.get('purchase_year'),
+               time_in_service=data.get('time_in_service'),
+                 Next_maintainance=data.get('Next_maintainance') )
+
+            if data:
+                    return Response("Data For Application, Added Sucessfully")
+            else:
+                # response={'message':"Invalid id"}
+                # return Response(response, status=status.HTTP_400_BAD_REQUEST)
+                return Response("Data Required For Application")
+
+
+        else:
+            # return JsonResponse({'message': 'Id Required.'})
+            return Response("ID Required For Application")
+
 
     # CheckAuth(request)
 
@@ -241,12 +272,12 @@ class Map_APIView(APIView):
     def post(self, request):
         data = request.data
         # application_id=data.get('application_id')
-        lng = data.get('lng')
-        lat=data.get('lat')
+        Lng = data.get('Lng')
+        Lat=data.get('Lat')
 
         if data:
 
-            regcreate = GMap.objects.create(lng=lng,lat=lat)
+            regcreate = GMap.objects.create(Lng=Lng,Lat=Lat)
 
             return Response("Data For Application, Added Sucessfully")
 
@@ -308,5 +339,24 @@ class VideoStream_APIView(APIView):
             # Closes all the frames
             cv2.destroyAllWindows()
 
+        return Response(LiveStream())
 
-    return Response(LiveStream())
+
+#daywise flight#
+
+#how to get last flight time?
+#if i try to get it by last date, what if that drone is flying today , database will store today's data. 
+class FlightDaywise_APIView(APIView):
+
+    def get(self, request):
+
+        # appdata = CountDetails.objects.values_list('video')
+        totalannotation=Drone.objects.values_list('annotation_name')
+
+        # dronedata=Drone.objects.values_list('purchase_year')
+        # avgAge=dronedata/dronedata
+        # print(avgAge)
+        # appd=
+
+        # return Response( int(sum('purchase_year')) / int(len('purchase_year')))
+        return Response(totalannotation)

@@ -1,0 +1,55 @@
+// add drone css
+export const styles = {
+  main_container: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    flexWrap: "wrap",
+    backgroundColor: "primary.main",
+    borderRadius: "5px",
+    padding: "2rem 5rem",
+  },
+  main_wrap: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  input_wrap: { width: "100%", marginBottom: "10px" },
+  input_label: {
+    color: "white",
+    fontSize: "1.2rem",
+    marginBottom: "10px",
+  },
+  input_field: { backgroundColor: "white", width: "100%" },
+  con_btn: {
+    backgroundColor: "primary.light",
+    width: "200px",
+    color: "black",
+    fontSize: "1.2rem",
+    marginTop: "1rem",
+    "&:hover": {
+      backgroundColor: "secondary.main",
+      color: "white",
+    },
+  },
+  annot_wrap: {
+    width: "100%",
+    marginTop: "1rem",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    flexDirection: "column",
+  },
+  annot_list_wrap: {
+    width: "100%",
+    height: "300px",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    backgroundColor: "white",
+    borderRadius: "5px",
+  },
+};

@@ -305,8 +305,12 @@ class Map_APIView(APIView):
         lng = data.get('lng')
         lat=data.get('lat')
         isActive=data.get('isActive')
+        drone_id=data.get('drone_id')
 
         if data:
+
+            # for i in data:
+
 
             regcreate = GMap.objects.create(lng=lng,lat=lat,isActive=isActive)
 

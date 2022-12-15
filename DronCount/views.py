@@ -37,19 +37,20 @@ class Human_APIView(APIView):
         else:
             return Response("no human")
 
-
-class Maps_APIView(APIView):
-
-    def post(self, request):
-        data = request.data
-        # application_id=data.get('application_id')
-        longitude = data.get('longitude')
-        latitude = data.get('latitude')
-        if data:
-        # data=GMap.objects.create(latitude=latitude,longitude=longitude)
-            return Response(fig)
-        else:
-            return Response("no data")
+#
+# class Maps_APIView(APIView):
+#
+#     def post(self, request):
+#         data = request.data
+#         # application_id=data.get('application_id')
+#         lng = data.get('lng')
+#         lat = data.get('lat')
+#         isActive=data.get('isActive')
+#         if data:
+#         # data=GMap.objects.create(latitude=latitude,longitude=longitude)
+#             return Response(fig)
+#         else:
+#             return Response("no data")
 
 
 class Add_Drone_APIView(APIView):
@@ -301,18 +302,22 @@ class Map_APIView(APIView):
     def post(self, request):
         data = request.data
         # application_id=data.get('application_id')
-        Lng = data.get('Lng')
-        Lat=data.get('Lat')
+        lng = data.get('lng')
+        lat=data.get('lat')
+        isActive=data.get('isActive')
 
         if data:
 
-            regcreate = GMap.objects.create(Lng=Lng,Lat=Lat)
+            regcreate = GMap.objects.create(lng=lng,lat=lat,isActive=isActive)
 
             return Response("Data For Application, Added Sucessfully")
 
         else:
             return Response("Data Required For Application")
 
+    def get(self,request):
+        appdata = GMap.objects.all().values()
+        return Response(appdata)
 
 # class Map_APIView(APIView):
 #     def post(self, request):

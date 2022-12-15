@@ -14,8 +14,10 @@ class CountDetails(models.Model):
 
 class GMap(models.Model):
     # geolocation = map_fields.GeoLocationField(max_length=100)
-    Lng=models.CharField(max_length=50, null=True, blank=True)
-    Lat=models.CharField(max_length=50, null=True, blank=True)
+    lng=models.CharField(max_length=50, null=True, blank=True)
+    lat=models.CharField(max_length=50, null=True, blank=True)
+    isActive=models.BooleanField(default=False)
+
     # geom = models.PointField(blank=True, null=True)
 
 class Drone(models.Model):
@@ -31,7 +33,7 @@ class Drone(models.Model):
     last_update_timestamp= models.DateTimeField(auto_now_add=True,verbose_name="last_update_timestamp",blank=True, null=True)
 
 
-    is_on=models.BooleanField(default=False)
+    # is_on=models.BooleanField(default=False)
 
 
 

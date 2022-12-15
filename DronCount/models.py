@@ -27,8 +27,9 @@ class Drone(models.Model):
     # drone_location=models.CharField(max_length=50, null=True, blank=True)
     aircraft_type=models.CharField(max_length=50, null=True, blank=True)
     connection_id=models.CharField(max_length=50, null=True, blank=True)
-    created_timestamp =   models.DateTimeField(auto_now_add=True,verbose_name="Created_Timestamp",blank=True,null=True)
+    created_timestamp =models.DateTimeField(auto_now_add=True,verbose_name="Created_Timestamp",blank=True,null=True)
     last_update_timestamp= models.DateTimeField(auto_now_add=True,verbose_name="last_update_timestamp",blank=True, null=True)
+
 
     is_on=models.BooleanField(default=False)
 

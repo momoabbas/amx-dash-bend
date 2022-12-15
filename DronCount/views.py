@@ -184,29 +184,58 @@ class DroneCount_APIView(APIView):
         return Response(drone_count)
 
 
+import datetime
 
+# using now() to get current time
 class DroneAvgAge_APIView(APIView):
 
     def get(self, request):
+        # age=[]
+        # current_time = datetime.datetime.now()
+        # current_time=current_time.format(current_time)
+        # print("CURRENT TIME",current_time)
+        drone_count=Drone.objects.values_list('purchase_year')
+        drone_count=list(drone_count)
+        print("HHHHHHHHHHHHHHHHHHHHHHHHH",drone_count)
+        # age=current_time-drone_count
+        # print(age)
+        # data_s = Drone.objects.values_list('purchase_year')
+        # print("PRRRRRRRRRRRRRR",data_s)
+        # date_s=list(data_s)
+        # print("TYPPPPPPPPPPPPPPPEEEEEEEEEEEEEEE",type(data_s))
+        # print("PROOOOOOOOOOOOOOOOOOOO",data_s)
+        # dateList = []
+        #
+        # for i in data_s:
+        #     if purchase_year == str(i['purchase_year'].date()):
+        #         dateList.append(str(i['purchase_year'].date()))
+        # return Response({'message': len(dateList)})
+
+        # purchase_year=datetime.purchase_year.year
+        # # purchase_year=datetime.year
+        # print("PURCHASE YEAR",purchase_year)
+
 
         # appdata = CountDetails.objects.values_list('video')
-        drone_count=Drone.objects.values_list('purchase_year').count()
-        print("DRONE TOTAL COUNT",drone_count)
+        # drone_count=Drone.objects.values_list('purchase_year').count()
+        # print("DRONE TOTAL COUNT",drone_count)
+        #
+        # print(type(drone_count))
+        # dronedata=Drone.objects.values_list('purchase_year',flat=True)
+        # dronedata=list(dronedata)
+        # # dronedata =Drone.objects.aggregate(sum('purchase_year'))
+        # print("DRONE TOTAL VALUE",dronedata)
+        # print(type(dronedata))
+        #
+        #
+        # avgAge=dronedata/drone_count
+        # print(avgAge)
+        # # appd=
 
-        print(type(drone_count))
-        dronedata=Drone.objects.values_list('purchase_year',flat=True)
-        dronedata=list(dronedata)
-        # dronedata =Drone.objects.aggregate(sum('purchase_year'))
-        print("DRONE TOTAL VALUE",dronedata)
-        print(type(dronedata))
+        # return Response( sum('purchase_year') / len('purchase_year'))
+        # return Response(avgAge)
+        return Response(age)
 
-
-        avgAge=dronedata/drone_count
-        print(avgAge)
-        # appd=
-
-        return Response( sum('purchase_year') / len('purchase_year'))
-        return Response(avgAge)
 
 
 
@@ -345,18 +374,18 @@ class VideoStream_APIView(APIView):
 #daywise flight#
 
 #how to get last flight time?
-#if i try to get it by last date, what if that drone is flying today , database will store today's data. 
-class FlightDaywise_APIView(APIView):
-
-    def get(self, request):
-
-        # appdata = CountDetails.objects.values_list('video')
-        totalannotation=Drone.objects.values_list('annotation_name')
-
-        # dronedata=Drone.objects.values_list('purchase_year')
-        # avgAge=dronedata/dronedata
-        # print(avgAge)
-        # appd=
-
-        # return Response( int(sum('purchase_year')) / int(len('purchase_year')))
-        return Response(totalannotation)
+#if i try to get it by last date, what if that drone is flying today , database will store today's data.
+# class FlightDaywise_APIView(APIView):
+#
+#     def get(self, request):
+#
+#         # appdata = CountDetails.objects.values_list('video')
+#         totalannotation=Drone.objects.values_list('annotation_name')
+#
+#         # dronedata=Drone.objects.values_list('purchase_year')
+#         # avgAge=dronedata/dronedata
+#         # print(avgAge)
+#         # appd=
+#
+#         # return Response( int(sum('purchase_year')) / int(len('purchase_year')))
+#         # return Response(totalannotation)

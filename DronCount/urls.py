@@ -24,7 +24,7 @@ urlpatterns = [
     path('countDrone/',DroneCount_APIView.as_view(), name="DRONECOUNT"),
     path('droneAvgAge/',DroneAvgAge_APIView.as_view(), name="DRONEAVGAGE"),
     path('totalannot/',TotalAnnot_APIView.as_view(), name="TOTALANNOTAION"),
-    path('monthflight/',MonthFlights_APIView.as_view(), name="MONTHFLIGHTS"),
+    path('monthflight/',MonthFlight_APIView.as_view(), name="MONTHFLIGHTS"),
     path('annotationlist/',Annotationlist_APIView.as_view(), name="ANNOTAIONLIST"),
     path('videostream/',VideoStream_APIView.as_view(), name="VIDEOSTREAM"),
 

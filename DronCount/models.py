@@ -19,15 +19,17 @@ class CountDetails(models.Model):
 class Drone(models.Model):
     model_name=models.CharField(max_length=50, null=True, blank=True)
     UIN=models.CharField(max_length=50, null=True, blank=True)
-    time_in_service=models.DateTimeField(auto_now_add=False,verbose_name="Time in service",blank=True,null=True)
-    Next_maintainance=models.DateTimeField(auto_now_add=False,verbose_name="Time in service",blank=True,null=True)
-    purchase_year=models.DateTimeField(auto_now_add=False,verbose_name="Time in service",blank=True,null=True)
+    time_in_service=models.DateTimeField(auto_now_add=True,verbose_name="Time in service",blank=True,null=True)
+    Next_maintainance=models.DateTimeField(auto_now_add=True,verbose_name="Time in service",blank=True,null=True)
+    purchase_year=models.DateTimeField(auto_now_add=False,verbose_name="Created_Timestamp",blank=True,null=True)
+    # purchase_day=models.FloatField(null=True, blank=True)
+    # purchase_month=models.FloatField(null=True, blank=True)
     # drone_location=models.CharField(max_length=50, null=True, blank=True)
     aircraft_type=models.CharField(max_length=50, null=True, blank=True)
     connection_id=models.CharField(max_length=50, null=True, blank=True)
     created_timestamp =models.DateTimeField(auto_now_add=True,verbose_name="Created_Timestamp",blank=True,null=True)
     last_update_timestamp= models.DateTimeField(auto_now_add=True,verbose_name="last_update_timestamp",blank=True, null=True)
-
+# date=Drone.data.purchase_year.date()
 class GMap(models.Model):
     # geolocation = map_fields.GeoLocationField(max_length=100)
     drone = models.ForeignKey(Drone,null=True, on_delete= models.CASCADE)

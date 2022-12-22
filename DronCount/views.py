@@ -76,7 +76,7 @@ class Add_Drone_APIView(APIView):
             # print(today_date)
 
 
-
+            
             regcreate = Drone.objects.create(aircraft_type=aircraft_type,
             connection_id=connection_id,model_name=model_name,purchase_year=purchase_year,UIN=UIN,time_in_service=time_in_service,Next_maintainance=Next_maintainance)
 
@@ -206,6 +206,7 @@ from django.db.models import Avg
 # from django.db.models import Avg, Extra
 from operator import truediv
 from django.db.models.functions import ExtractYear
+from statistics import mean
 
 class DroneAvgAge_APIView(APIView):
 
@@ -245,12 +246,14 @@ class DroneAvgAge_APIView(APIView):
 
         # print(filtered_data)
         # month=filtered_data[0][0]
+        # drone_age_list=[]
         for inner_tuple in filtered_data:
             filtered = inner_tuple[0]
             filtered=filtered.date()
             age=current_date-filtered
+            # drone_age_list.append(age)
             print()
-            print("AAAAAAAAGGGGGGGGGGGEEEEEEEEEEE",age)
+            print("AAAAAAAAGGGGGGGGGGGEEEEEEEEEEE",type(age),age.days)
             filtered=datetime.datetime.strptime(str(filtered), "%Y-%m-%d")
 
             print("ONE BY ONE DATEEEEEEEEEEEEEEEE",filtered)
@@ -259,14 +262,16 @@ class DroneAvgAge_APIView(APIView):
 
             # age=current_date-filtered
 
-            ageL.append(age)
-            print("=========================",type(ageL),ageL)
+            ageL.append(int(age.days))
+        average=mean(ageL)
+        print("=========================",type(ageL),ageL)
+        print("AVERAGE AGE OF THE DRONES",average)
 
-            def sum_numbers(ageL):
-                for number in ageL:
-                    total += number
-                return total
-            print("TTTTTTTTTTTTTTTTTTT",total)
+        # def sum_numbers(ageL):
+        #     for number in ageL:
+        #         total += number
+        #     return total
+        # print("TTTTTTTTTTTTTTTTTTT",total)
 
 
             # print("sum",sum)
@@ -298,7 +303,7 @@ class DroneAvgAge_APIView(APIView):
                      "filtered_data_count":filtered_data_count,
                      "filtered":filtered,
                      "ageL":ageL,
-                     "total":total
+                     "average":average
                      },)
 #OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
         # current_time = datetime.date.now()
@@ -611,21 +616,21 @@ class TotalAnnot_APIView(APIView):
 #         print("jhsajhd")
 #         return Response(tempDaysorMonth)
 #
-
-class Annotationlist_APIView(APIView):
-
-    def get(self, request):
-
-        # appdata = CountDetails.objects.values_list('video')
-        totalannotation=CountDetails.objects.values_list('annotation_name')
-
-        # dronedata=Drone.objects.values_list('purchase_year')
-        # avgAge=dronedata/dronedata
-        # print(avgAge)
-        # appd=
-
-        # return Response( int(sum('purchase_year')) / int(len('purchase_year')))
-        return Response(totalannotation)
+#
+# class Annotationlist_APIView(APIView):
+#
+#     def get(self, request):
+#
+#         # appdata = CountDetails.objects.values_list('video')
+#         totalannotation=CountDetails.objects.values_list('annotation_name')
+#
+#         # dronedata=Drone.objects.values_list('purchase_year')
+#         # avgAge=dronedata/dronedata
+#         # print(avgAge)
+#         # appd=
+#
+#         # return Response( int(sum('purchase_year')) / int(len('purchase_year')))
+#         return Response(totalannotation)
 
 
 class Map_APIView(APIView):
@@ -641,7 +646,9 @@ class Map_APIView(APIView):
             if drone_id:
                 regcreate = GMap.objects.create(lng=lng,lat=lat,isActive=isActive)
 
-                return Response("Data For Application, Added Sucessfully")
+                return Response({'lng':lng,
+                                'lat':lat,
+                                'drone_id':drone_id})
 
             else:
                 return Response("ID Required For Application")

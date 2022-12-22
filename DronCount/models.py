@@ -19,9 +19,9 @@ class CountDetails(models.Model):
 class Drone(models.Model):
     model_name=models.CharField(max_length=50, null=True, blank=True)
     UIN=models.CharField(max_length=50, null=True, blank=True)
-    time_in_service=models.DateTimeField(auto_now_add=True,verbose_name="Time in service",blank=True,null=True)
-    Next_maintainance=models.DateTimeField(auto_now_add=True,verbose_name="Time in service",blank=True,null=True)
-    purchase_year=models.DateTimeField(auto_now_add=False,verbose_name="Created_Timestamp",blank=True,null=True)
+    time_in_service=models.DateTimeField(verbose_name="Time in service",blank=True,null=True)
+    Next_maintainance=models.DateTimeField(verbose_name="Next_maintainance",blank=True,null=True)
+    purchase_year=models.DateTimeField(verbose_name="purchase_year",blank=True,null=True)
     # purchase_day=models.FloatField(null=True, blank=True)
     # purchase_month=models.FloatField(null=True, blank=True)
     # drone_location=models.CharField(max_length=50, null=True, blank=True)

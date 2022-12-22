@@ -175,7 +175,7 @@ class OTP_Verification_forgotpassAPIView(APIView):
 #         else:
 #             response="Password did not matched"
 #             return Response(response, status=status.HTTP_400_BAD_REQUEST)
-
+#
 
 
 

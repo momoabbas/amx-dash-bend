@@ -26,10 +26,12 @@ class SignupAPIView(APIView):
         if CustomUser.objects.filter(Q(user_name=user_name)).exists():
             return Response({'Error':'User Already Exists'})
         else:
-            data=CustomUser.objects.create(user_name=user_name)
+            data=CustomUser.objects.create(user_name=user_name,mail=mail,password=password)
             auth_token=jwt.encode(
                                     {
                                         'user_name':user_name,
+                                        'mail':mail,
+                                        'password':password
                                     },
                                     str(settings.JWT_SECRET_KEY), algorithm="HS256")
                                     #print(auth_token,'this is auth_token')
@@ -56,13 +58,14 @@ class LoginAPIView(APIView):
     def post(self,request):
         data = request.data
         user_name =data.get("user_name")
+        password=data.get("password")
         response = {}
         if CustomUser.objects.filter(Q(user_name=user_name)).exists():
             user =CustomUser.objects.get(Q(user_name=user_name))
             #data_dict = {}
             if user:
                 auth_token = jwt.encode(
-                    {'user_id':user.id,'user_name':user_name},
+                    {'user_id':user.id,'user_name':user_name,'password':password},
                     str(settings.JWT_SECRET_KEY), algorithm="HS256")
                 authorization = 'Bearer'+' '+str(auth_token)
                 response_result = {}
@@ -102,9 +105,9 @@ class ForgotPassword_send_otp(APIView):
     def post(self, request):
         data = request.data
 
-        user_name = data.get('user_name')
+        mail = data.get('mail')
 
-        user_check=CustomUser.objects.filter(user_name=user_name)
+        user_check=CustomUser.objects.filter(mail=mail)
         for i in user_check:
             mail=i.mail
         if user_check:
@@ -119,7 +122,8 @@ class ForgotPassword_send_otp(APIView):
             )
             data_dict = {}
             data_dict["Otp"] = otpsss
-            return JsonResponse(data_dict, safe=False)
+            da="OTP SENT"
+            return Response(da)
 
         else:
             response="Invalid username"
@@ -145,56 +149,56 @@ class OTP_Verification_forgotpassAPIView(APIView):
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 #
-# class ForgotPasswordUpdate(APIView):
-#
-#     def post(self, request):
-#         data = request.data
-#         username = data.get('user_name')
-#         password = data.get('new_password')
-#         confirm_password = data.get('confirm_password')
-#
-#         user_check = CustomUser.objects.filter(user_name= user_name)
-#
-#         if password == confirm_password:
-#             if user_check:
-#                 user_data = User.objects.get(user_name= user_name)
-#                 user_data.set_password(password)
-#                 user_data.save()
-#
-#                 message= 'Hello!\nYour password has been updated sucessfully. '
-#                 subject= 'Password Updated Sucessfully '
-#
-#                 email = EmailMessage(subject, message, to=[user_data.mail])
-#                 email.send()
-#                 response="Password Updated Sucessfully"
-#                 return Response(response, status=status.HTTP_200_OK)
-#
-#             else:
-#                 response="Please Enter Valid username"
-#                 return Response(response, status=status.HTTP_400_BAD_REQUEST)
-#         else:
-#             response="Password did not matched"
-#             return Response(response, status=status.HTTP_400_BAD_REQUEST)
-#
-
-
-
-class ForgotPasswordReset(APIView):
+class ForgotPasswordUpdate(APIView):
 
     def post(self, request):
         data = request.data
-
         user_name = data.get('user_name')
-        password = data.get('password')
-        user_check = User.objects.filter(user_name= user_name)
-        if user_check:
-            user_data = User.objects.get(user_name= user_name)
-            user_data.set_password(password)
-            user_data.save()
-            message= 'Hello!\nYour password has been updated sucessfully. '
-            subject= 'Password Updated Sucessfully '
-            email = EmailMessage(subject, message, to=[user_data.mail])
-            email.send()
-            return Response({'result':{'message': 'Password Updated Sucessfully'}})
+        password = data.get('new_password')
+        confirm_password = data.get('confirm_password')
+
+        user_check = CustomUser.objects.filter(user_name= user_name)
+
+        if password == confirm_password:
+            if user_check:
+                user_data = CustomUser.objects.get(user_name= user_name)
+                # user_data.set_password(password)
+                user_data.save()
+
+                message= 'Hello!\nYour password has been updated sucessfully. '
+                subject= 'Password Updated Sucessfully '
+
+                email = EmailMessage(subject, message, to=[user_data.mail])
+                email.send()
+                response="Password Updated Sucessfully"
+                return Response(response, status=status.HTTP_200_OK)
+
+            else:
+                response="Please Enter Valid username"
+                return Response(response, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'error':{'message': 'Please Enter Valid username'}})
+            response="Password did not matched"
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+#
+# class ForgotPasswordReset(APIView):
+#
+#     def post(self, request):
+#         data = request.data
+#
+#         user_name = data.get('user_name')
+#         password = data.get('password')
+#         user_check = User.objects.filter(user_name= user_name)
+#         if user_check:
+#             user_data = User.objects.get(user_name= user_name)
+#             user_data.set_password(password)
+#             user_data.save()
+#             message= 'Hello!\nYour password has been updated sucessfully. '
+#             subject= 'Password Updated Sucessfully '
+#             email = EmailMessage(subject, message, to=[user_data.mail])
+#             email.send()
+#             return Response({'result':{'message': 'Password Updated Sucessfully'}})
+#         else:
+#             return Response({'error':{'message': 'Please Enter Valid username'}})

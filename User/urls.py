@@ -21,6 +21,6 @@ urlpatterns = [
     path('login/', LoginAPIView.as_view(), name='LOGIN'),
     path('forgot_password_otp/',ForgotPassword_send_otp.as_view()),
     path('otp_Verification_forgot/',OTP_Verification_forgotpassAPIView.as_view()),
-    path('ForgotPasswordReset/', ForgotPasswordReset.as_view()),
+    path('ForgotPasswordUpdate/', ForgotPasswordUpdate.as_view()),
 
     ]

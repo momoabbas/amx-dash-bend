@@ -76,7 +76,7 @@ class Add_Drone_APIView(APIView):
             # print(today_date)
 
 
-            
+
             regcreate = Drone.objects.create(aircraft_type=aircraft_type,
             connection_id=connection_id,model_name=model_name,purchase_year=purchase_year,UIN=UIN,time_in_service=time_in_service,Next_maintainance=Next_maintainance)
 
@@ -298,11 +298,7 @@ class DroneAvgAge_APIView(APIView):
         # new_List = [i/filtered_data_count for i in age]
         # print(new_List)
         # print("AVERAGE AGE OF DRONEEEEEEEEEEEEEEE",avg_age)
-        return Response({"current date": current_date,
-                     "purchase_year": filtered_data,
-                     "filtered_data_count":filtered_data_count,
-                     "filtered":filtered,
-                     "ageL":ageL,
+        return Response({
                      "average":average
                      },)
 #OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
@@ -313,13 +309,13 @@ class DroneAvgAge_APIView(APIView):
         # # current_time=current_time.format(current_time)
         # print("CURRENT TIME",current_time)
         #{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{UNCMNT}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
-        drone_count=Drone.objects.all().values('purchase_year')
-        current_month = timezone.now()
-        current_year=current_month.year
-
-        todays_date=datetime.datetime.strptime(str(current_year), "%Y")
-        print("YYYYYYYYYYYYYYYYYyy",type(todays_date),todays_date)
-        return Response()
+        # drone_count=Drone.objects.all().values('purchase_year')
+        # current_month = timezone.now()
+        # current_year=current_month.year
+        #
+        # todays_date=datetime.datetime.strptime(str(current_year), "%Y")
+        # print("YYYYYYYYYYYYYYYYYyy",type(todays_date),todays_date)
+        # return Response()
 
         # print("+++++++++++++++++",type(drone_count),drone_count)
         # for i in drone_count:
